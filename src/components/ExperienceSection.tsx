@@ -1,7 +1,7 @@
 
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Briefcase, Calendar } from "lucide-react";
 
 export function ExperienceSection() {
   const experiences = [
@@ -44,41 +44,60 @@ export function ExperienceSection() {
   ];
 
   return (
-    <section id="experience" className="py-20 bg-secondary/50">
+    <section id="experience" className="py-24">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-2 animate-fade-in">Experience</h2>
-        <div className="w-20 h-1 bg-primary mb-10 animate-scale-in"></div>
+        <div className="flex flex-col items-center mb-16 text-center">
+          <Badge variant="outline" className="mb-4">EXPERIENCE</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold font-display mb-6 animate-fade-in">Work & Experience</h2>
+          <div className="w-24 h-1 bg-primary rounded-full mb-6"></div>
+          <p className="text-muted-foreground max-w-2xl">
+            My professional journey includes internships and leadership roles that have
+            helped me grow as a developer and collaborator.
+          </p>
+        </div>
         
-        <div className="grid grid-cols-1 gap-8">
+        <div className="relative">
+          {/* Timeline line */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2"></div>
+          
           {experiences.map((exp, index) => (
             <div 
               key={index} 
-              className="animate-slide-in" 
-              style={{ animationDelay: `${index * 100}ms` }}
+              className={`md:flex items-center mb-16 last:mb-0 animate-fade-in ${
+                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+              }`}
+              style={{ animationDelay: `${index * 150}ms` }}
             >
-              <Card className="overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg">
-                <CardContent className="p-0">
-                  <div className="flex flex-col md:flex-row">
-                    <div className="bg-primary/10 p-6 flex items-center justify-center md:w-1/5">
-                      <Briefcase className="h-10 w-10 text-primary" />
-                    </div>
-                    <div className="p-6 md:w-4/5">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                        <div>
-                          <h3 className="text-xl font-semibold">{exp.role}</h3>
-                          <p className="text-muted-foreground">{exp.company}</p>
-                        </div>
-                        <Badge className="mt-2 md:mt-0 w-fit">{exp.duration}</Badge>
+              {/* Timeline dot */}
+              <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 z-10">
+                <div className="w-5 h-5 rounded-full bg-primary border-4 border-background"></div>
+              </div>
+              
+              {/* Content */}
+              <div className={`md:w-1/2 ${index % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"}`}>
+                <Card className="overflow-hidden transition-all hover:shadow-md border-l-4 border-l-primary">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <h3 className="text-xl font-semibold">{exp.role}</h3>
+                        <p className="text-muted-foreground">{exp.company}</p>
                       </div>
-                      <ul className="list-disc list-inside space-y-2">
-                        {exp.description.map((item, idx) => (
-                          <li key={idx} className="text-sm md:text-base">{item}</li>
-                        ))}
-                      </ul>
+                      <Badge className="flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        {exp.duration}
+                      </Badge>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                    <ul className="list-disc list-inside space-y-2 marker:text-primary">
+                      {exp.description.map((item, idx) => (
+                        <li key={idx} className="text-sm text-muted-foreground">{item}</li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+              
+              {/* Empty space for alignment */}
+              <div className="hidden md:block md:w-1/2"></div>
             </div>
           ))}
         </div>

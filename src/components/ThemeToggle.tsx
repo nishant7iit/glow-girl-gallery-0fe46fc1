@@ -37,7 +37,7 @@ export function ThemeToggle() {
       variant="ghost" 
       size="icon" 
       onClick={toggleTheme}
-      className="animate-fade-in transition-colors duration-200"
+      className="rounded-full bg-secondary/60 hover:bg-secondary transition-colors duration-200"
       aria-label="Toggle theme"
     >
       {theme === "light" ? (
